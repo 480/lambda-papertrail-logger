@@ -86,17 +86,6 @@ module.exports = function createLogger(context, papertrailConfig) {
 			port: papertrailConfig.port,
 			program: context.functionName,
 			hostname: getHostnameForARN(context.invokedFunctionArn),
-			includeMetaInMessage: false,
-			messageFormat: function (level, message, meta) {
-				return JSON.stringify(Object.assign({
-					_time: timestamp(),
-					msg: message
-				}, meta, {
-					level: level,
-					version: context.functionVersion,
-					requestId: context.awsRequestId
-				}));
-			}
 		});
 	}
 
